@@ -1,0 +1,45 @@
+{
+  "name": "habibi-baileys",
+  "version": "1.0.0",
+  "description": "Enhanced Baileys wrapper — sendButton, sendImage, sendList, react, and more out of the box.",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./helpers": "./src/attachHelpers.js"
+  },
+  "files": [
+    "src/"
+  ],
+  "scripts": {
+    "test": "node --input-type=module --eval \"import('./src/index.js').then(m => console.log('✅ habibi-baileys OK', Object.keys(m)))\""
+  },
+  "keywords": [
+    "baileys",
+    "whatsapp",
+    "whatsapp-bot",
+    "wa-bot",
+    "habibi"
+  ],
+  "author": "HabibiOfficial",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HabibiOfficial/habibi-baileys.git"
+  },
+  "bugs": {
+    "url": "https://github.com/HabibiOfficial/habibi-baileys/issues"
+  },
+  "homepage": "https://github.com/HabibiOfficial/habibi-baileys#readme",
+  "peerDependencies": {
+    "@whiskeysockets/baileys": ">=6.0.0 || ^7.0.0-rc.0"
+  },
+  "peerDependenciesMeta": {
+    "@whiskeysockets/baileys": {
+      "optional": false
+    }
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
