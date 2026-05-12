@@ -1,19 +1,19 @@
-# habibi-baileys
+# habibi-baileys-bot
 
 > Drop-in enhanced [Baileys](https://github.com/WhiskeySockets/Baileys) wrapper untuk **semua bot WhatsApp**. Tinggal ganti `makeWASocket` → `makeHabibiSocket`, semua helper langsung aktif.
 
-[![npm version](https://img.shields.io/npm/v/habibi-baileys.svg)](https://www.npmjs.com/package/habibi-baileys)
-[![npm downloads](https://img.shields.io/npm/dm/habibi-baileys.svg)](https://www.npmjs.com/package/habibi-baileys)
-[![license](https://img.shields.io/npm/l/habibi-baileys.svg)](LICENSE)
-[![GitHub](https://img.shields.io/badge/GitHub-HabibiOfficial-181717?logo=github)](https://github.com/HabibiOfficial/habibi-baileys)
+[![npm version](https://img.shields.io/npm/v/habibi-baileys-bot.svg)](https://www.npmjs.com/package/habibi-baileys-bot)
+[![npm downloads](https://img.shields.io/npm/dm/habibi-baileys-bot.svg)](https://www.npmjs.com/package/habibi-baileys-bot)
+[![license](https://img.shields.io/npm/l/habibi-baileys-bot.svg)](LICENSE)
+[![GitHub](https://img.shields.io/badge/GitHub-HabibiOfficial-181717?logo=github)](https://github.com/HabibiOfficial/habibi-baileys-bot)
 
 ---
 
-## Kenapa habibi-baileys?
+## Kenapa habibi-baileys-bot?
 
 Baileys resmi hanya menyediakan `sendMessage` yang sangat low-level. Setiap bot harus menulis ulang helper yang sama — kirim gambar, tombol, list, react, dll. Library ini menyatukan semua itu menjadi API yang bersih dan siap pakai untuk **bot apapun**.
 
-| Fitur | Baileys biasa | habibi-baileys |
+| Fitur | Baileys biasa | habibi-baileys-bot |
 |---|:---:|:---:|
 | Login QR Code | ✅ | ✅ |
 | Login Pairing Code | ✅ | ✅ |
@@ -30,7 +30,7 @@ Baileys resmi hanya menyediakan `sendMessage` yang sangat low-level. Setiap bot 
 ## Instalasi
 
 ```bash
-npm install habibi-baileys @whiskeysockets/baileys
+npm install habibi-baileys-bot @whiskeysockets/baileys
 ```
 
 > **Kompatibilitas Baileys:**  
@@ -49,24 +49,24 @@ Semua opsi Baileys tetap berjalan normal, helper langsung aktif.
 import makeWASocket from '@whiskeysockets/baileys'
 const sock = makeWASocket({ auth: state })
 
-// SESUDAH (habibi-baileys) — semua helper langsung aktif
-import { makeHabibiSocket } from 'habibi-baileys'
+// SESUDAH (habibi-baileys-bot) — semua helper langsung aktif
+import { makeHabibiSocket } from 'habibi-baileys-bot'
 const sock = makeHabibiSocket({ auth: state })
 
 // atau sebagai default import:
-import makeHabibiSocket from 'habibi-baileys'
+import makeHabibiSocket from 'habibi-baileys-bot'
 const sock = makeHabibiSocket({ auth: state })
 ```
 
-Karena `habibi-baileys` juga meng-export ulang semua dari Baileys resmi, import lain cukup dari satu package:
+Karena `habibi-baileys-bot` juga meng-export ulang semua dari Baileys resmi, import lain cukup dari satu package:
 
 ```js
 // Sebelum — 2 import
 import makeWASocket, { useMultiFileAuthState, DisconnectReason } from '@whiskeysockets/baileys'
-import { makeHabibiSocket, makeButtons } from 'habibi-baileys'
+import { makeHabibiSocket, makeButtons } from 'habibi-baileys-bot'
 
 // Sesudah — 1 import saja
-import makeHabibiSocket, { useMultiFileAuthState, DisconnectReason, makeButtons } from 'habibi-baileys'
+import makeHabibiSocket, { useMultiFileAuthState, DisconnectReason, makeButtons } from 'habibi-baileys-bot'
 ```
 
 ---
@@ -78,7 +78,7 @@ import makeHabibiSocket, { useMultiFileAuthState, DisconnectReason, makeButtons 
 ### Cara 1 — QR Code (scan dari WA)
 
 ```js
-import makeHabibiSocket, { useMultiFileAuthState } from 'habibi-baileys'
+import makeHabibiSocket, { useMultiFileAuthState } from 'habibi-baileys-bot'
 
 const { state, saveCreds } = await useMultiFileAuthState('./session')
 
@@ -96,7 +96,7 @@ Tidak perlu scan QR — cukup masukkan 8-digit kode di
 **WA → Perangkat Tertaut → Tautkan Perangkat → Tautkan dengan nomor telepon**.
 
 ```js
-import makeHabibiSocket, { useMultiFileAuthState } from 'habibi-baileys'
+import makeHabibiSocket, { useMultiFileAuthState } from 'habibi-baileys-bot'
 import readline from 'node:readline'
 
 const { state, saveCreds } = await useMultiFileAuthState('./session')
@@ -131,7 +131,7 @@ sock.ev.on('connection.update', async ({ connection, isNewLogin }) => {
 **Pakai `normalizePhone` agar nomor apapun bisa diterima:**
 
 ```js
-import { normalizePhone } from 'habibi-baileys'
+import { normalizePhone } from 'habibi-baileys-bot'
 
 // Sebelum requestPairingCode — normalisasi dulu
 const phone = normalizePhone(inputNomor)  // handles 0812x / +62 812 / 62812 / dll
@@ -149,7 +149,7 @@ import makeHabibiSocket, {
   DisconnectReason,
   makeButtons,
   makeNewsletterCtx,
-} from 'habibi-baileys'
+} from 'habibi-baileys-bot'
 
 async function startBot() {
   const { state, saveCreds } = await useMultiFileAuthState('./session')
@@ -190,9 +190,9 @@ async function startBot() {
         buttons: [
           makeButtons.quickReply('🤖 Fitur AI', '.ai'),
           makeButtons.quickReply('📥 Download', '.downloader'),
-          makeButtons.ctaUrl('🌐 GitHub', 'https://github.com/HabibiOfficial/habibi-baileys'),
+          makeButtons.ctaUrl('🌐 GitHub', 'https://github.com/HabibiOfficial/habibi-baileys-bot'),
         ],
-        footer: 'habibi-baileys',
+        footer: 'habibi-baileys-bot',
       })
     }
 
@@ -200,7 +200,7 @@ async function startBot() {
       return sock.sendList(chat, {
         title: 'Menu Bot',
         text: 'Pilih kategori yang kamu inginkan:',
-        footer: 'habibi-baileys',
+        footer: 'habibi-baileys-bot',
         buttonText: '📋 Buka Menu',
         sections: [
           {
@@ -229,7 +229,7 @@ startBot()
 Drop-in replacement untuk `makeWASocket`. Semua opsi Baileys diterima.
 
 ```js
-import makeHabibiSocket from 'habibi-baileys'
+import makeHabibiSocket from 'habibi-baileys-bot'
 const sock = makeHabibiSocket({ auth: state, printQRInTerminal: true })
 ```
 
@@ -241,7 +241,7 @@ Untuk yang sudah punya socket existing dan ingin menambah helper secara manual.
 
 ```js
 import makeWASocket from '@whiskeysockets/baileys'
-import { attachHelpers } from 'habibi-baileys'
+import { attachHelpers } from 'habibi-baileys-bot'
 
 const sock = makeWASocket({ auth: state })
 attachHelpers(sock)  // sekarang sock.reply, sock.sendButton, dll tersedia
@@ -336,7 +336,7 @@ await sock.sendButton(chat, './assets/banner.jpg', 'Selamat datang!', msg, {
 Builder untuk semua tipe tombol interaktif WhatsApp.
 
 ```js
-import { makeButtons } from 'habibi-baileys'
+import { makeButtons } from 'habibi-baileys-bot'
 
 // Quick Reply — user klik, bot menerima teks sebagai pesan
 makeButtons.quickReply('Teks Tombol', 'id_atau_teks')
@@ -442,7 +442,7 @@ Bersihkan nomor HP dari format apapun ke format internasional bersih yang diteri
 | `'+1 650 555 0100'` | `'16505550100'` |
 
 ```js
-import { normalizePhone, toJid } from 'habibi-baileys'
+import { normalizePhone, toJid } from 'habibi-baileys-bot'
 
 // Normalisasi saja
 normalizePhone('0812-3456-7890')         // "628123456789"
@@ -469,7 +469,7 @@ const jid = sock.toJid('0812-3456-7890') // "628123456789@s.whatsapp.net"
 Tambahkan konteks newsletter/saluran ke pesan apapun.
 
 ```js
-import { makeNewsletterCtx } from 'habibi-baileys'
+import { makeNewsletterCtx } from 'habibi-baileys-bot'
 
 await sock.sendButton(chat, null, 'Halo!', msg, {
   buttons: [makeButtons.quickReply('Menu', '.menu')],
@@ -487,14 +487,14 @@ await sock.sendButton(chat, null, 'Halo!', msg, {
 Tampilkan thumbnail di atas pesan tanpa menyimpan ke galeri.
 
 ```js
-import { makeAdReplyCtx } from 'habibi-baileys'
+import { makeAdReplyCtx } from 'habibi-baileys-bot'
 
 await sock.reply(chat, 'Info bot', msg, {
   contextInfo: makeAdReplyCtx({
     title: 'Judul Preview',
     body: 'Subjudul',
     thumbnailUrl: 'https://example.com/thumbnail.jpg',
-    sourceUrl: 'https://github.com/HabibiOfficial/habibi-baileys',
+    sourceUrl: 'https://github.com/HabibiOfficial/habibi-baileys-bot',
   }),
 })
 ```
@@ -504,7 +504,7 @@ await sock.reply(chat, 'Info bot', msg, {
 ## Struktur Package
 
 ```
-habibi-baileys/
+habibi-baileys-bot/
 ├── src/
 │   ├── index.js                 ← entry point, semua export ada di sini
 │   ├── makeHabibiSocket.js      ← makeHabibiSocket() — wrapper utama
@@ -528,8 +528,8 @@ habibi-baileys/
 ```bash
 git init
 git add .
-git commit -m "feat: initial release habibi-baileys v1.0.0"
-git remote add origin https://github.com/HabibiOfficial/habibi-baileys.git
+git commit -m "feat: initial release habibi-baileys-bot v1.0.0"
+git remote add origin https://github.com/HabibiOfficial/habibi-baileys-bot.git
 git push -u origin main
 ```
 
@@ -544,7 +544,7 @@ npm publish
 
 ## Perbedaan dengan Baileys Resmi
 
-habibi-baileys **tidak** memodifikasi Baileys di dalam, hanya menambah method ke atas socket yang sudah ada. Ini artinya:
+habibi-baileys-bot **tidak** memodifikasi Baileys di dalam, hanya menambah method ke atas socket yang sudah ada. Ini artinya:
 
 - ✅ Update Baileys resmi bisa langsung dipakai
 - ✅ Semua fitur Baileys tetap berfungsi normal
