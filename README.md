@@ -124,9 +124,20 @@ sock.ev.on('connection.update', async ({ connection, isNewLogin }) => {
 ```
 
 > **Catatan:**  
-> - Format nomor: `628xxxxxxxx` (tanpa `+`, tanpa spasi)  
 > - Pairing code berlaku **60 detik**, request ulang jika expired  
-> - `requestPairingCode` adalah method native Baileys, langsung tersedia di socket
+> - `requestPairingCode` adalah method native Baileys, langsung tersedia di socket  
+> - Gunakan `normalizePhone()` dari library ini untuk membersihkan nomor sebelum dipakai
+
+**Pakai `normalizePhone` agar nomor apapun bisa diterima:**
+
+```js
+import { normalizePhone } from 'habibi-baileys'
+
+// Sebelum requestPairingCode — normalisasi dulu
+const phone = normalizePhone(inputNomor)  // handles 0812x / +62 812 / 62812 / dll
+const code  = await sock.requestPairingCode(phone)
+console.log('Kode:', code)
+```
 
 ---
 
@@ -415,6 +426,41 @@ await sock.sendDocument(chat, './data.xlsx', 'data.xlsx',
 ```js
 await sock.sendSticker(chat, stickerBuffer, msg)  // harus format WebP
 ```
+
+---
+
+### `normalizePhone(raw, defaultCode?)` — Normalisasi Nomor HP
+
+Bersihkan nomor HP dari format apapun ke format internasional bersih yang diterima WhatsApp.
+
+| Input | Output |
+|---|---|
+| `'0812-3456-7890'` | `'628123456789'` |
+| `'+62 812 3456 7890'` | `'628123456789'` |
+| `'812 3456 7890'` | `'628123456789'` |
+| `'628123456789'` | `'628123456789'` |
+| `'+1 650 555 0100'` | `'16505550100'` |
+
+```js
+import { normalizePhone, toJid } from 'habibi-baileys'
+
+// Normalisasi saja
+normalizePhone('0812-3456-7890')         // "628123456789"
+normalizePhone('+62 812 3456 7890')      // "628123456789"
+normalizePhone('812xxx', '62')           // "62812xxx"
+
+// Konversi langsung ke JID WhatsApp
+toJid('0812-3456-7890')                  // "628123456789@s.whatsapp.net"
+
+// Pakai saat requestPairingCode agar nomor apapun bisa masuk
+const phone = normalizePhone(inputUser)
+const code  = await sock.requestPairingCode(phone)
+
+// Pakai sebagai method di socket (sudah di-attach otomatis)
+const jid = sock.toJid('0812-3456-7890') // "628123456789@s.whatsapp.net"
+```
+
+> Default kode negara: `'62'` (Indonesia). Ubah parameter kedua untuk negara lain, contoh `normalizePhone('07911123456', '44')` untuk UK.
 
 ---
 
