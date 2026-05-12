@@ -16,6 +16,7 @@ export { attachMessage }                     from './helpers/message.js';
 export { attachMedia }                       from './helpers/media.js';
 export { attachList }                        from './helpers/list.js';
 export { makeNewsletterCtx, makeAdReplyCtx } from './helpers/newsletter.js';
+export { normalizePhone, toJid, attachPhone } from './helpers/phone.js';
 
 // ── Re-export semua dari Baileys resmi ────────────────────────
 // Cukup import dari 1 package saja: habibi-baileys
