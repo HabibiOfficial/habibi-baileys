@@ -1,6 +1,6 @@
 {
-  "name": "habibi-baileys",
-  "version": "1.0.1",
+  "name": "habibi-baileys-bot",
+  "version": "1.0.0",
   "description": "Enhanced Baileys wrapper — sendButton, sendImage, sendList, react, and more out of the box.",
   "type": "module",
   "main": "src/index.js",
